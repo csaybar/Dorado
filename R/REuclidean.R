@@ -1,8 +1,8 @@
 #'Estimación de la distancia Euclideana en Raster
 #'@author Cesar Luis Aybar Camacho
-#'@params shp: Es un objeto de clase SpatialPolygonsDataFrame,SpatialLineDataFrame,SpatialPointsDataFrame.
-#'@params rasterModel: Es un objeto clase Raster 
-#'@params Es el carpeto de destino
+#'@param shp: Es un objeto de clase SpatialPolygonsDataFrame, SpatialLineDataFrame, SpatialPointsDataFrame.
+#'@param rasterModel: Es un objeto clase Raster
+#'@param output: Es el carpeto de destino
 #'@importFrom raster shapefile raster mask distance writeRaster
 #'@export
 EuclideanRaster <- function(shp, rasterModel, output) {
@@ -12,4 +12,3 @@ EuclideanRaster <- function(shp, rasterModel, output) {
   euclidean <- distance(mk)
   writeRaster(euclidean, output)
 }
-
