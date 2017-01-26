@@ -1,11 +1,11 @@
 Package: Dorado
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Easy Rainfall and Temperature Interpolation
 Version: 0.1
 Date: 2017-01-23
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
+Author: Cesar Aybar
+Maintainer: Cesar  Aybar <aybar1994@gmail.com>
+Description: This packages provee function to interpolate spatial data
+License: MIT
 LazyData: TRUE
 RoxygenNote: 5.0.1

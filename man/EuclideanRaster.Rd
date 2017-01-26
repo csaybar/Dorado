@@ -11,7 +11,7 @@ EuclideanRaster(shp, rasterModel, output)
 
 \item{rasterModel:}{Es un objeto clase Raster}
 
-\item{Es}{el carpeto de destino}
+\item{output:}{Es el carpeto de destino}
 }
 \description{
 Estimación de la distancia Euclideana en Raster
