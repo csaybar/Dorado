@@ -4,15 +4,15 @@
 \alias{RegressionIDW}
 \title{Regression-IDW optimizado}
 \usage{
-RegressionIDW(gauge = dperu2, sat = rSAT, idpR = seq(0.8, 3.5, 0.1),
-  saveparam, saverast)
+RegressionIDW(gauge = dperu2, sat = rSAT, formula = gauge ~ cov,
+  idpR = seq(0.8, 3.5, 0.1), saveparam, saverast)
 }
 \arguments{
 \item{gauge}{An object of SpatialPointsDataFrame-class.}
 
-\item{sat}{An object of RasterLayer.}
-
 \item{idpR}{Is the range of the power coeficient}
+
+\item{cov}{An object of RasterLayer.}
 }
 \description{
 Regression-IDW optimizado

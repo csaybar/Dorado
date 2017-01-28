@@ -1,30 +1,30 @@
 #' Regression-IDW optimizado
 #' @author Cesar Aybar
 #' @param gauge An object of SpatialPointsDataFrame-class.
-#' @param sat An object of RasterLayer.
+#' @param cov An object of RasterLayer.
 #' @param idpR Is the range of the power coeficient
 #' @importFrom automap autofitVariogram
 #' @importFrom raster extract projection writeRaster
 #' @importFrom sp coordinates
 #' @importFrom gstat krige.cv idw
 #' @export
-RegressionIDW <- function(gauge = dperu2, sat = rSAT,
+RegressionIDW <- function(gauge = dperu2, sat = rSAT,formula=gauge ~ cov,
                           idpR = seq(0.8, 3.5,0.1), saveparam, saverast) {
-  ext <- raster::extract(sat, gauge, cellnumber = F, sp = T)
-  names(ext) <- c("gauge", "sat")
+  ext <- raster::extract(cov, gauge, cellnumber = F, sp = T)
+  names(ext) <- c("gauge", "cov")
   station <- gauge
-  llm <- lm(ext$gauge ~ ext$sat)
+  llm <- lm(ext$gauge ~ ext$cov)
   station$residuals <- llm$residuals
 
   # Define Grid
   # -------------------------------------------------------------
 
-  point <- rasterToPoints(sat)
+  point <- rasterToPoints(cov)
   point <- as.data.frame(point)
-  colnames(point) <- c("x", "y", "sat")
+  colnames(point) <- c("x", "y", "cov")
   coordinates(point) <- ~x + y
-  projection(point) <- projection(sat)
-  names(ext) <- c("gauge", "sat")
+  projection(point) <- projection(cov)
+  names(ext) <- c("gauge", "cov")
 
   # Estimate Best Parameter
   # -------------------------------------------------
@@ -48,7 +48,7 @@ RegressionIDW <- function(gauge = dperu2, sat = rSAT,
   gridded(idwError) <- TRUE
   mapa <- raster(idwError)
 
-  OBSp <- sat * llm$coefficients[2] + llm$coefficients[1]
+  OBSp <- cov * llm$coefficients[2] + llm$coefficients[1]
   Ridw <- OBSp + mapa
   Ridw[Ridw < 0] <- 0
 

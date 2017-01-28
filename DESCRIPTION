@@ -8,4 +8,6 @@ Maintainer: Cesar  Aybar <aybar1994@gmail.com>
 Description: This packages provee function to interpolate spatial data
 License: MIT
 LazyData: TRUE
+Imports:gdalUtils, raster, automap, dplyr, gstat, sp
+Suggest: gdalUtils
 RoxygenNote: 5.0.1
