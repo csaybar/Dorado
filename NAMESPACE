@@ -3,7 +3,7 @@
 export(Euclidean_R)
 export(FitVariogram)
 export(KED)
-export(R_IDW)
+export(RIDW)
 export(XY_R)
 export(resampleR)
 importFrom(automap,autofitVariogram)
