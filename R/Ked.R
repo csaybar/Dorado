@@ -1,37 +1,49 @@
-#' KED (Kriging with Extrenal Drift)
-#' @author Cesar Aybar
-#' @param gauge An object of SpatialPointsDataFrame-class.
-#' @param cov An object of RasterLayer.
-#' @param idpR Is the range of the power coeficient
+#' KED (Kriging with Extrenal Drift) using Raster and sp Objects
+#' @author Cesar Aybar <aybar1994@gmail.com>
+#' @param gauge Is an object of SpatialPointsDataFrame-class.
+#' @param cov Is an object of RasterLayer.
+#' @param formula that defines the dependent variable as a linear model
+#' of independent variables; suppose the dependent variable has
+#' name 'z', for Kriging with Extrenal Drift (KED) use the formula
+#' 'z~x+y+....', you do not need define
+#' @param model variogram model of dependent variable (or its residuals),
+#' defined by a call to \code{\link[Dorado]{FitVariogram}}
 #' @importFrom automap autofitVariogram
 #' @importFrom raster extract projection writeRaster
 #' @importFrom sp coordinates
 #' @importFrom gstat krige.cv idw
+#' @return a List that contains: \code{Interpol} is the KED result in Raster,
+#'  \code{params} being \code{residual} that are spatial residual obtains in the cross-validation (residual),
+#'  \code{MSE} is the Residual Mean squared error and finally \code{var} is  the variogram model.
+#' @examples
+#' data('Dorado')
+#' k <- KED(gauge = Dorado$rain,cov = stack(Dorado$cov),formula = rain~prec+dem)
+#' plot(k$Interpol)
+#' @seealso \link[gstat]{krige} \link[automap]{autoKrige}
 #' @export
+KED <- function(gauge, cov, formula, model, ...) {
+  gauge@data[, 1] <- as.numeric(as.character(gauge@data[, 1]))
+  vm.fit <- variogram_fit(gauge, cov, formula, ...)
+  ext <- vm.fit$ext
+  vm.fit <- vm.fit$ftvariogram
 
-KED<-function(gauge,
-              cov,
-              boundariess,
-              formula,
-              fx = c(NA,NA,NA),
-              saveparam="/home/senamhi-cesar/Escritorio/name.Rdata",
-              saverast="/home/senamhi-cesar/Escritorio/name.tif"
-){
-  ext<-raster::extract(cov,gauge,cellnumber=F,sp=T)
-  names(ext)<-c("gauge","cov")
-  vm.fit<-Rvariogrm(gauge,cov,formula = formula)
+  # Define Grid
+  # -------------------------------------------------------------
+  point <- rasterToPoints(cov) %>% data.frame
+  coordinates(point) <- ~x + y
+  projection(point) <- projection(cov)
 
-  #------Define grid----------------------
-  point<-readGDAL(cov@file@name)
-  names(point)<-"cov"
-  #---------------------------------------
-  Zs<-krige(gauge~cov, locations = ext, newdata = point, model = vm.fit$var_model)
-  Zs.cv<-krige.cv(gauge~cov, ext, nfold = nrow(ext),nmax = Inf)
-  Zs.cvresidual<-Zs.cv["residual"]
-  map 			<- as(Zs[1],"SpatialPixelsDataFrame")
+
+  # Interpolation
+  # ----------------------------------------------------------
+  Zs <- krige(formula, locations = ext, newdata = point, model = vm.fit$var_model)
+  Zs.cv <- krige.cv(formula, ext, nfold = nrow(ext), nmax = Inf)
+  Zs.cvresidual <- Zs.cv["residual"]
+  map <- as(Zs[1], "SpatialPixelsDataFrame")
   gridded(map) <- TRUE
-  mapa <- raster(map); mapa[mapa<=0]=0
-  save(vm.fit,Zs.cvresidual,file = saveparam)
-  writeRaster(mapa,filename = saverast,overwrite=TRUE)
+  mapa <- raster(map)
+  mapa[mapa <= 0] <- 0
+  list(Interpol = mapa, params = list(residual = Zs.cvresidual, MSE = mean(Zs.cvresidual$residual^2),
+                                      var = vm.fit))
 }
 

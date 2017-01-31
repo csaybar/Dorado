@@ -4,21 +4,19 @@
 \alias{RIDW}
 \title{Regression IDW Optimizing inverse distance weighting power}
 \usage{
-RIDW(gauge, newdata, formula, idpR = seq(0.8, 3.5, 0.1))
+RIDW(gauge, cov, formula, idpR = seq(0.8, 3.5, 0.1))
 }
 \arguments{
 \item{gauge}{Is an object of SpatialPointsDataFrame class.}
 
-\item{newdata}{Is An object of RasterLayer.}
-
 \item{formula}{that defines the dependent variable as a linear model
 of independent variables; suppose the dependent variable has
-name 'z', for ordinary and simple kriging use the formula
-'z~1'; for simple kriging also define 'beta' (see below); for
-universal kriging, suppose 'z' is linearly dependent on 'x'
-and 'y', use the formula 'z~x+y'.}
+name 'z', for Regression Inverse Distance Weigthing (RIDW) use the formula
+'z~x+y+....', you do not need define}
 
 \item{idpR}{Is vector numeric of the power coeficient to evaluate.}
+
+\item{newdata}{Is An object of RasterLayer.}
 }
 \description{
 This function use gstat packages for interpolate spatial point data (see \code{\link[sp]{SpatialPointsDataFrame}} )
@@ -27,6 +25,12 @@ and RasterLayer data  (see \code{\link[raster]})
 \details{
 R_IDW use crossvalidation Leave-p-out cross-validation (LpO CV) and force brute (optimize MSE)
  for estimate the best idp power coeficient.
+}
+\examples{
+ library(raster)
+ data(Titicaca)
+ x <- RIDW(gauge = Titicaca$rain,cov = stack(Titicaca$cov),formula = rain~prec+dem)
+ plot(x$Interpol)
 }
 \author{
 Cesar Aybar <aybar1994@gmail.com>

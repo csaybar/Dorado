@@ -82,9 +82,11 @@ FitVariogram = function(formula, input_data, model = c("Sph", "Exp", "Gau", "Ste
   longlat = !is.projected(input_data)
   if(is.na(longlat)) longlat = FALSE
   diagonal = spDists(t(bbox(input_data)), longlat = longlat)[1,2]                # 0.35 times the length of the central axis through the area
-  boundaries =  boundaries         # Boundaries for the bins in km
-
-
+  if(!missing(boundaries))  boundaries =  boundaries         # Boundaries for the bins in km
+  else{
+    boundaries = c(2, 4, 6, 9, 12, 15, 25, 35, 50, 65, 80, 100) *
+    diagonal * 0.35/100
+  }
   # If you specifiy a variogram model in GLS.model the Generelised least squares sample variogram is constructed
   if(!is(GLS.model, "variogramModel")) {
     experimental_variogram = variogram(formula, input_data,boundaries = boundaries, ...)
