@@ -4,7 +4,7 @@
 \alias{RIDW}
 \title{Regression IDW Optimizing inverse distance weighting power}
 \usage{
-RIDW(gauge, cov, formula, idpR = seq(0.8, 3.5, 0.1))
+RIDW(gauge, cov, formula, idpR = seq(0.8, 3.5, 0.1), qgis = F)
 }
 \arguments{
 \item{gauge}{Is an object of SpatialPointsDataFrame class.}
@@ -17,6 +17,12 @@ name 'z', for Regression Inverse Distance Weigthing (RIDW) use the formula
 \item{idpR}{Is vector numeric of the power coeficient to evaluate.}
 
 \item{newdata}{Is An object of RasterLayer.}
+}
+\value{
+a List that contains: \code{Interpol} is the RIDW result in Raster,
+ \code{params} being \code{bestp} is the best distance weighting power,
+ \code{MSE} is the Residual Mean squared error of the residuals and
+  finally \code{linear_Model} is  the adjusted linear Model.
 }
 \description{
 This function use gstat packages for interpolate spatial point data (see \code{\link[sp]{SpatialPointsDataFrame}} )

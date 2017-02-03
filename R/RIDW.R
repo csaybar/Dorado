@@ -27,7 +27,7 @@
 #' @importFrom gstat krige.cv idw
 #' @export
 #'
-RIDW <- function(gauge, cov, formula, idpR = seq(0.8, 3.5, 0.1)) {
+RIDW <- function(gauge, cov, formula, idpR = seq(0.8, 3.5, 0.1),qgis=F) {
   ext <- raster::extract(cov, gauge, cellnumber = F, sp = T)
   station <- gauge
   linear <- na.omit(ext@data) %>% tbl_df %>% mutate_all(as.character) %>%

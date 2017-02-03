@@ -20,9 +20,9 @@ name 'z', for Kriging with Extrenal Drift (KED) use the formula
 defined by a call to \code{\link[Dorado]{FitVariogram}}}
 }
 \value{
-a List that contains:Interpol is the interpolation result in Raster,
- params that are spatial residual obtains in the cross-validation (residual),
- MSE is the Residual Mean squared error and finally var is  the variogram model.
+a List that contains: \code{Interpol} is the KED result in Raster,
+ \code{params} being \code{residual} that are spatial residual obtains in the cross-validation (residual),
+ \code{MSE} is the Residual Mean squared error and finally \code{var} is  the variogram model.
 }
 \description{
 KED (Kriging with Extrenal Drift) using Raster and sp Objects
