@@ -2,8 +2,8 @@
 #'@description This function implement a quick method for estimate the euclidean distance using
 #'a RasterLayer object for defined the boundaries.
 #'@author Cesar Aybar <aybar1994@gmail.com>
-#'@param sp: Is a object sp (\code{SpatialPolygonsDataFrame}, \code{SpatialLineDataFrame}, \code{SpatialPointsDataFrame}).
-#'@param raster: Is a RasterLayer object.
+#'@param sp Is a object sp (\code{SpatialPolygonsDataFrame}, \code{SpatialLineDataFrame}, \code{SpatialPointsDataFrame}).
+#'@param raster Is a RasterLayer object.
 #'@details This function use the raster only for extract the coordinates referent system and geometries attributes,
 #'the values are not used.
 #'@importFrom raster shapefile raster mask distance writeRaster

@@ -3,9 +3,9 @@
 #'@author Cesar Aybar <aybar1994@gmail.com>
 #'@param R1  Is a RasterLayer object to resample.
 #'@param R2  Is a RasterLayer object that contains the CRS and desired geometry.
-#'@param t_res: Numeric. Is the pixel resolution (c(xres,yres))
-#'@param t_ext: Numeric.(c(xmin,ymin,xmax,ymax)). set georeferenced extents of output file to be created (in target SRS).
-#'@param Routput: Character. The destination file name.
+#'@param t_res Numeric. Is the pixel resolution (c(xres,yres))
+#'@param t_ext Numeric.(c(xmin,ymin,xmax,ymax)). set georeferenced extents of output file to be created (in target SRS).
+#'@param Routput Character. The destination file name.
 #'@details
 #'This function use \code{\link[gdalUtils]{gdalwarp}} for resampling RasterLayer object and
 #'implement the two next possible situations. The first is that you have two RasterLayer objects
@@ -17,9 +17,12 @@
 #'@importFrom gdalUtils gdalwarp
 #'@examples
 #' #First Case
-#'resampleR(R1=Prec_Bolivia,R2=dem,Routput = "~/")
+#' library(raster)
+#' r_prec<-system.file("external/raster/Chirp_1981_01_01.tif",package = "Dorado")
+#' Prec_Bolivia<-raster(r_prec)
+#' #resampleR(R1=Prec_Bolivia,R2=dem,Routput = "~/")
 #' #Second Case
-#'resampleR(R1=Prec_Bolivia,t_res=c(0.1,0.1),t_ext=c(-71,-65,-23,-13),Routput = "~/")
+#' #resampleR(R1=Prec_Bolivia,t_res=c(0.1,0.1),t_ext=c(-71,-65,-23,-13),Routput = "~/")
 #'@export
 
 resampleR <- function(R1 = NULL, R2 = NULL, t_res = NULL, t_ext = NULL,
@@ -30,7 +33,7 @@ resampleR <- function(R1 = NULL, R2 = NULL, t_res = NULL, t_ext = NULL,
       #----------------------------------------------------------------
       t1 <- c(xmin(R2), ymin(R2), xmax(R2), ymax(R2))  #coordenadas de la imagen destino
       t2 <- c(res(R2)[1], res(R2)[2])  #resolucion de la imagen destino
-      namess <- paste0(.Internal(dirname(R1@file@name)), "/R.", names(R1),
+      namess <- paste0(dirname(R1@file@name), "/R.", names(R1),
                        ".tif")  #NAME
       #----------------------------------------------------------------
 

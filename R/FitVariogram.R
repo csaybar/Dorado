@@ -1,5 +1,5 @@
 #' Fit Varigoram using autofitVariogram modified
-#' @author Cesar Aybar
+#' @author Paul Hiemstra
 #' @description This function is a very slight variation about the function autofitVariogram of packages
 #' automap. Only added the param boundaries so the user can define it.
 #' @details   Geostatistical routines are used from package \code{gstat}.
@@ -49,7 +49,7 @@
 #' @param start_vals Can be used to give the starting values for the variogram fitting. The items describe the
 #' fixed value for the nugget, range and sill respectively. They need to be given in that order.
 #' Setting the value to NA means that the value will be automatically chosen.
-#' @param \code{...} parameters that are passed on to \link[gstat]{variogram} variogram when calculating the sample variogram
+#' @param ... parameters that are passed on to \link[gstat]{variogram} variogram when calculating the sample variogram
 #' @param miscFitOptions A list with named arguments that provide additional control over the fitting process.
 #' For example: \code{list(merge.small.bins = TRUE)}. If the list is empty, autofitVariogram
 #' uses default values. The following parameters can be set:
@@ -60,11 +60,13 @@
 #'  \item{\code{min.np.bin}:}{integer, the minimum number of points allowed in a bin before
 #'  we start merging bins. See also \code{merge.small.bins}.}
 #'  }
-#'
 #' @seealso \code{\link[gstat]{fit.variogram}}, \code{\link{autoKrige}}, \code{\link{posPredictionInterval}}
-#' @importFrom sp spDists
-#' @importFrom gstat variogram gstat fit.variogram
+#' @importFrom sp spDists bbox is.projected
+#' @importFrom gstat variogram gstat fit.variogram vgm
+#' @import gstat
 #' @export
+
+
 FitVariogram = function(formula, input_data, model = c("Sph", "Exp", "Gau", "Ste"),
                             kappa = c(0.05, seq(0.2, 2, 0.1), 5, 10), fix.values = c(NA,NA,NA),
                             verbose = FALSE, GLS.model = NA, start_vals = c(NA,NA,NA),
@@ -72,8 +74,8 @@ FitVariogram = function(formula, input_data, model = c("Sph", "Exp", "Gau", "Ste
   # This function automatically fits a variogram to input_data
 {
   # Check for anisotropy parameters
-  if('alpha' %in% names(list(...))) warning('Anisotropic variogram model fitting not supported, see the documentation of autofitVariogram for more details.')
-
+  if('alpha' %in% names(list(...)))
+    warning('Anisotropic variogram model fitting not supported, see the documentation of autofitVariogram for more details.')
   # Take the misc fit options and overwrite the defaults by the user specified ones
   miscFitOptionsDefaults = list(merge.small.bins = TRUE, min.np.bin = 5)
   miscFitOptions = modifyList(miscFitOptionsDefaults, miscFitOptions)

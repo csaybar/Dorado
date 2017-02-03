@@ -1,13 +1,18 @@
 #' Estimate Longitude and Latitude RasterLayer object
 #'@author Cesar Aybar <aybar1994@gmail.com>
-#'@param x: RasterLayer object
-#'@importFrom dplyr %>%
-#'@importFrom raster rasterToPoints
-#'@importFrom sp coordinates
+#'@param x RasterLayer object
 #'@examples
-#' data(Prec_Bolivia)
-#' generateXYraster(Prec_Bolivia)
+#'library(Dorado)
+#' data("Titicaca")
+#' XY_R(Titicaca$cov$prec)
+#'@importFrom dplyr %>%
+#'@importFrom raster rasterToPoints raster
+#'@importFrom sp coordinates gridded
+#'@import sp
+#'@import raster
+#'@importFrom utils modifyList
 #'@export
+
 XY_R <- function(x) {
   long <- rasterToPoints(x)[, c(1, 2, 1)] %>% data.frame
   coordinates(long) <- ~x + y
@@ -19,8 +24,3 @@ XY_R <- function(x) {
   lat <- raster(lat)
   return(list(lat = lat, long = long))
 }
-
-
-
-
-raster()

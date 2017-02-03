@@ -1,15 +1,16 @@
 #' Regression IDW Optimizing inverse distance weighting power
+#' @description This function use gstat packages for interpolate spatial point data (\link[sp]{SpatialPoints})
+#' and RasterLayer data (see \link[raster]{raster}).
 #' @author Cesar Aybar <aybar1994@gmail.com>
-#' @description This function use gstat packages for interpolate spatial point data (see \code{\link[sp]{SpatialPointsDataFrame}} )
-#' and RasterLayer data  (see \code{\link[raster]})
 #' @seealso \link[gstat]{idw}
 #' @param gauge Is an object of SpatialPointsDataFrame class.
-#' @param newdata Is An object of RasterLayer.
+#' @param cov Is An object of RasterLayer.
 #' @param idpR Is vector numeric of the power coeficient to evaluate.
 #' @param formula that defines the dependent variable as a linear model
 #' of independent variables; suppose the dependent variable has
 #' name 'z', for Regression Inverse Distance Weigthing (RIDW) use the formula
-#' 'z~x+y+....', you do not need define
+#' 'z~x+y+....', you do not need define.
+#' @param ... parameters that are passed on to \link[gstat]{variogram} variogram when calculating the sample variogram
 #' @details R_IDW use crossvalidation Leave-p-out cross-validation (LpO CV) and force brute (optimize MSE)
 #'  for estimate the best idp power coeficient.
 #' @return a List that contains: \code{Interpol} is the RIDW result in Raster,
@@ -22,23 +23,24 @@
 #'  x <- RIDW(gauge = Titicaca$rain,cov = stack(Titicaca$cov),formula = rain~prec+dem)
 #'  plot(x$Interpol)
 #' @importFrom automap autofitVariogram
-#' @importFrom raster extract projection writeRaster
-#' @importFrom sp coordinates
+#' @importFrom dplyr %>% tbl_df mutate_all
+#' @importFrom raster extract projection writeRaster stack nlayers
+#' @importFrom sp coordinates gridded
 #' @importFrom gstat krige.cv idw
+#' @importFrom methods as is
+#' @importFrom stats lm median na.omit
 #' @export
 #'
-RIDW <- function(gauge, cov, formula, idpR = seq(0.8, 3.5, 0.1),qgis=F) {
+RIDW <- function(gauge, cov, formula, idpR = seq(0.8, 3.5, 0.1),...) {
   ext <- raster::extract(cov, gauge, cellnumber = F, sp = T)
   station <- gauge
   linear <- na.omit(ext@data) %>% tbl_df %>% mutate_all(as.character) %>%
     mutate_all(as.numeric)
-  names <- colnames(linear)
-  lapply(1:ncol(linear), function(i) assign(names[i], linear[[i]], envir = .GlobalEnv))
-  llm <- lm(formula)
+  llm <- lm(formula,linear)
   station$residuals <- llm$residuals
 
-  # Define Grid -------------------------------------------------------------
 
+  # Define Grid -------------------------------------------------------------
   point <- rasterToPoints(cov) %>% data.frame
   coordinates(point) <- ~x + y
   projection(point) <- projection(cov)
@@ -72,8 +74,6 @@ RIDW <- function(gauge, cov, formula, idpR = seq(0.8, 3.5, 0.1),qgis=F) {
   Ridw <- OBSp + mapa
   Ridw[Ridw < 0] <- 0
   # Save Data ---------------------------------------------------------------
-  if(qgis==F)
   list(Interpol = Ridw, params = list(bestp = bestparam, MSE = mean(residual.best^2),
                                       linear_Model = llm))
-  else Ridw
 }

@@ -8,14 +8,17 @@
 #' 'z~x+y+....', you do not need define
 #' @param model variogram model of dependent variable (or its residuals),
 #' defined by a call to \code{\link[Dorado]{FitVariogram}}
+#' @param ... parameters that are passed on to \link[gstat]{variogram} variogram when calculating the sample variogram
 #' @importFrom automap autofitVariogram
 #' @importFrom raster extract projection writeRaster
 #' @importFrom sp coordinates
-#' @importFrom gstat krige.cv idw
+#' @importFrom gstat krige.cv idw krige
 #' @return a List that contains: \code{Interpol} is the KED result in Raster,
 #'  \code{params} being \code{residual} that are spatial residual obtains in the cross-validation (residual),
 #'  \code{MSE} is the Residual Mean squared error and finally \code{var} is  the variogram model.
 #' @examples
+#' library(raster)
+#' library(Dorado)
 #' data('Dorado')
 #' k <- KED(gauge = Dorado$rain,cov = stack(Dorado$cov),formula = rain~prec+dem)
 #' plot(k$Interpol)

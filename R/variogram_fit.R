@@ -6,10 +6,11 @@
 #' of independent variables; suppose the dependent variable has
 #' name 'z', for Kriging with Extrenal Drift (KED) use the formula
 #' 'z~x+y+....', you do not need define
-#' @param \code{...} parameters that are passed on to \link[gstat]{variogram} variogram when calculating the sample variogram
+#' @param ... parameters that are passed on to \link[gstat]{variogram} variogram when calculating the sample variogram
 #' @importFrom raster extract
 #' @seealso \link[gstat]{fit.variogram} \link[automap]{autofitVariogram}
 #' @examples
+#' library(raster)
 #' data(Dorado)
 #' variogram_fit(gauge = Dorado$rain,cov = stack(Dorado$cov),rain~prec+dem)
 #' @export
