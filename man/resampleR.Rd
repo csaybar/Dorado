@@ -12,11 +12,11 @@ resampleR(R1 = NULL, R2 = NULL, t_res = NULL, t_ext = NULL,
 
 \item{R2}{Is a RasterLayer object that contains the CRS and desired geometry.}
 
-\item{t_res:}{Numeric. Is the pixel resolution (c(xres,yres))}
+\item{t_res}{Numeric. Is the pixel resolution (c(xres,yres))}
 
-\item{t_ext:}{Numeric.(c(xmin,ymin,xmax,ymax)). set georeferenced extents of output file to be created (in target SRS).}
+\item{t_ext}{Numeric.(c(xmin,ymin,xmax,ymax)). set georeferenced extents of output file to be created (in target SRS).}
 
-\item{Routput:}{Character. The destination file name.}
+\item{Routput}{Character. The destination file name.}
 }
 \value{
 A RasterLayer object
@@ -33,11 +33,13 @@ and the extents.
 }
 \examples{
 #First Case
-resampleR(R1=Prec_Bolivia,R2=dem,Routput = "~/")
+library(raster)
+r_prec<-system.file("external/raster/Chirp_1981_01_01.tif",package = "Dorado")
+Prec_Bolivia<-raster(r_prec)
+#resampleR(R1=Prec_Bolivia,R2=dem,Routput = "~/")
 #Second Case
-resampleR(R1=Prec_Bolivia,t_res=c(0.1,0.1),t_ext=c(-71,-65,-23,-13),Routput = "~/")
+#resampleR(R1=Prec_Bolivia,t_res=c(0.1,0.1),t_ext=c(-71,-65,-23,-13),Routput = "~/")
 }
 \author{
 Cesar Aybar <aybar1994@gmail.com>
 }
-

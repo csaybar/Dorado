@@ -7,9 +7,9 @@
 Euclidean_R(sp, raster)
 }
 \arguments{
-\item{sp:}{Is a object sp (\code{SpatialPolygonsDataFrame}, \code{SpatialLineDataFrame}, \code{SpatialPointsDataFrame}).}
+\item{sp}{Is a object sp (\code{SpatialPolygonsDataFrame}, \code{SpatialLineDataFrame}, \code{SpatialPointsDataFrame}).}
 
-\item{raster:}{Is a RasterLayer object.}
+\item{raster}{Is a RasterLayer object.}
 }
 \description{
 This function implement a quick method for estimate the euclidean distance using
@@ -22,4 +22,3 @@ the values are not used.
 \author{
 Cesar Aybar <aybar1994@gmail.com>
 }
-

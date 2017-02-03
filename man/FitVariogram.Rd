@@ -51,7 +51,7 @@ uses default values. The following parameters can be set:
 
 \item{boundaries}{Are the Boundaries for the bins in km.}
 
-\item{\code{...}}{parameters that are passed on to \link[gstat]{variogram} variogram when calculating the sample variogram}
+\item{...}{parameters that are passed on to \link[gstat]{variogram} variogram when calculating the sample variogram}
 }
 \value{
 An object of type \code{autofitVariogram} is returned. This object contains the experimental variogram,
@@ -87,10 +87,9 @@ A list of all permitted variogram models is available by typing vgm() into the R
 
 It is possible to pass anisotropy parameters to \code{autofitVariogram}. However, \code{autofitVariogram} does not fit anisotropic variogram models. The function sees the anisotropic sample variogram as one big sample variogram. So it fits an average isotropic variogram model from the anisotropic sample variogram. A warning is issued when a users passes \code{alpha} to \code{autofitVariogram}.
 }
-\author{
-Cesar Aybar
-}
 \seealso{
 \code{\link[gstat]{fit.variogram}}, \code{\link{autoKrige}}, \code{\link{posPredictionInterval}}
 }
-
+\author{
+Paul Hiemstra
+}

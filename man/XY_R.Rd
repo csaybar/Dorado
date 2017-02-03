@@ -7,16 +7,16 @@
 XY_R(x)
 }
 \arguments{
-\item{x:}{RasterLayer object}
+\item{x}{RasterLayer object}
 }
 \description{
 Estimate Longitude and Latitude RasterLayer object
 }
 \examples{
-data(Prec_Bolivia)
-generateXYraster(Prec_Bolivia)
+library(Dorado)
+data("Titicaca")
+XY_R(Titicaca$cov$prec)
 }
 \author{
 Cesar Aybar <aybar1994@gmail.com>
 }
-

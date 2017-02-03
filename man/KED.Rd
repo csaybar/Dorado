@@ -18,6 +18,8 @@ name 'z', for Kriging with Extrenal Drift (KED) use the formula
 
 \item{model}{variogram model of dependent variable (or its residuals),
 defined by a call to \code{\link[Dorado]{FitVariogram}}}
+
+\item{...}{parameters that are passed on to \link[gstat]{variogram} variogram when calculating the sample variogram}
 }
 \value{
 a List that contains: \code{Interpol} is the KED result in Raster,
@@ -28,14 +30,15 @@ a List that contains: \code{Interpol} is the KED result in Raster,
 KED (Kriging with Extrenal Drift) using Raster and sp Objects
 }
 \examples{
+library(raster)
+library(Dorado)
 data('Dorado')
 k <- KED(gauge = Dorado$rain,cov = stack(Dorado$cov),formula = rain~prec+dem)
 plot(k$Interpol)
 }
-\author{
-Cesar Aybar <aybar1994@gmail.com>
-}
 \seealso{
 \link[gstat]{krige} \link[automap]{autoKrige}
 }
-
+\author{
+Cesar Aybar <aybar1994@gmail.com>
+}

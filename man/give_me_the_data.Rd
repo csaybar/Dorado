@@ -15,10 +15,10 @@ give_me_the_data(data = "Titicaca", output = "~/")
 Extract Dorado data
 }
 \examples{
-give_me_the_data(Titicaca)
-give_me_the_data(Dorado)
+data(Dorado)
+data(Titicaca)
+#give_me_the_data(Titicaca,output=getwd())
 }
 \author{
 Cesar Aybar <aybar1994@gmail.com>
 }
-

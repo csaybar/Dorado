@@ -16,19 +16,19 @@ of independent variables; suppose the dependent variable has
 name 'z', for Kriging with Extrenal Drift (KED) use the formula
 'z~x+y+....', you do not need define}
 
-\item{\code{...}}{parameters that are passed on to \link[gstat]{variogram} variogram when calculating the sample variogram}
+\item{...}{parameters that are passed on to \link[gstat]{variogram} variogram when calculating the sample variogram}
 }
 \description{
 Variogram Estimate based in RasterLayer and sp Objects
 }
 \examples{
+library(raster)
 data(Dorado)
 variogram_fit(gauge = Dorado$rain,cov = stack(Dorado$cov),rain~prec+dem)
-}
-\author{
-Cesar Aybar <aybar1994@gmail.com>
 }
 \seealso{
 \link[gstat]{fit.variogram} \link[automap]{autofitVariogram}
 }
-
+\author{
+Cesar Aybar <aybar1994@gmail.com>
+}

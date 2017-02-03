@@ -4,19 +4,21 @@
 \alias{RIDW}
 \title{Regression IDW Optimizing inverse distance weighting power}
 \usage{
-RIDW(gauge, cov, formula, idpR = seq(0.8, 3.5, 0.1), qgis = F)
+RIDW(gauge, cov, formula, idpR = seq(0.8, 3.5, 0.1), ...)
 }
 \arguments{
 \item{gauge}{Is an object of SpatialPointsDataFrame class.}
 
+\item{cov}{Is An object of RasterLayer.}
+
 \item{formula}{that defines the dependent variable as a linear model
 of independent variables; suppose the dependent variable has
 name 'z', for Regression Inverse Distance Weigthing (RIDW) use the formula
-'z~x+y+....', you do not need define}
+'z~x+y+....', you do not need define.}
 
 \item{idpR}{Is vector numeric of the power coeficient to evaluate.}
 
-\item{newdata}{Is An object of RasterLayer.}
+\item{...}{parameters that are passed on to \link[gstat]{variogram} variogram when calculating the sample variogram}
 }
 \value{
 a List that contains: \code{Interpol} is the RIDW result in Raster,
@@ -25,8 +27,8 @@ a List that contains: \code{Interpol} is the RIDW result in Raster,
   finally \code{linear_Model} is  the adjusted linear Model.
 }
 \description{
-This function use gstat packages for interpolate spatial point data (see \code{\link[sp]{SpatialPointsDataFrame}} )
-and RasterLayer data  (see \code{\link[raster]})
+This function use gstat packages for interpolate spatial point data (\link[sp]{SpatialPoints})
+and RasterLayer data (see \link[raster]{raster}).
 }
 \details{
 R_IDW use crossvalidation Leave-p-out cross-validation (LpO CV) and force brute (optimize MSE)
@@ -38,10 +40,9 @@ R_IDW use crossvalidation Leave-p-out cross-validation (LpO CV) and force brute 
  x <- RIDW(gauge = Titicaca$rain,cov = stack(Titicaca$cov),formula = rain~prec+dem)
  plot(x$Interpol)
 }
-\author{
-Cesar Aybar <aybar1994@gmail.com>
-}
 \seealso{
 \link[gstat]{idw}
 }
-
+\author{
+Cesar Aybar <aybar1994@gmail.com>
+}
