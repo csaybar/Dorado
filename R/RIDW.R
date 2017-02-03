@@ -72,6 +72,8 @@ RIDW <- function(gauge, cov, formula, idpR = seq(0.8, 3.5, 0.1),qgis=F) {
   Ridw <- OBSp + mapa
   Ridw[Ridw < 0] <- 0
   # Save Data ---------------------------------------------------------------
+  if(qgis==F)
   list(Interpol = Ridw, params = list(bestp = bestparam, MSE = mean(residual.best^2),
                                       linear_Model = llm))
+  else Ridw
 }
