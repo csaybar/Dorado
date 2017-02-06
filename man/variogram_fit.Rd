@@ -26,9 +26,10 @@ library(raster)
 data(Dorado)
 variogram_fit(gauge = Dorado$rain,cov = stack(Dorado$cov),rain~prec+dem)
 }
-\seealso{
-\link[gstat]{fit.variogram} \link[automap]{autofitVariogram}
-}
 \author{
 Cesar Aybar <aybar1994@gmail.com>
 }
+\seealso{
+\link[gstat]{fit.variogram} \link[automap]{autofitVariogram}
+}
+

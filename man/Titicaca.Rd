@@ -27,3 +27,4 @@ library(Dorado)
 data("Titicaca")
 }
 \keyword{datasets}
+

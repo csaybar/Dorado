@@ -40,9 +40,10 @@ R_IDW use crossvalidation Leave-p-out cross-validation (LpO CV) and force brute 
  x <- RIDW(gauge = Titicaca$rain,cov = stack(Titicaca$cov),formula = rain~prec+dem)
  plot(x$Interpol)
 }
-\seealso{
-\link[gstat]{idw}
-}
 \author{
 Cesar Aybar <aybar1994@gmail.com>
 }
+\seealso{
+\link[gstat]{idw}
+}
+
