@@ -2,7 +2,7 @@
 % Please edit documentation in R/best_method.R
 \name{best_method}
 \alias{best_method}
-\title{BEST METHOD INTERPOLATION}
+\title{Best Method Interpolation}
 \usage{
 best_method(gauge, cov, idpR = seq(0.8, 3.5, 0.1), formula)
 }
@@ -11,13 +11,12 @@ best_method(gauge, cov, idpR = seq(0.8, 3.5, 0.1), formula)
 
 \item{cov}{Is an object of RasterLayer.}
 
+\item{idpR}{Is vector numeric of the power coeficient to evaluate.}
+
 \item{formula}{that defines the dependent variable as a linear model
 of independent variables; suppose the dependent variable has
 name 'z', for Kriging with Extrenal Drift (KED) use the formula
 'z~x+y+....', you do not need define}
-
-\item{model}{variogram model of dependent variable (or its residuals),
-defined by a call to \code{\link[Dorado]{FitVariogram}}}
 
 \item{...}{parameters that are passed on to \link[gstat]{variogram} variogram when calculating the sample variogram}
 }
@@ -28,7 +27,7 @@ a List that contains: \code{Interpol} is the KED result in Raster,
  @export
 }
 \description{
-BEST METHOD INTERPOLATION
+Best Method Interpolation
 }
 \author{
 Cesar Aybar <aybar1994@gmail.com>

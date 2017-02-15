@@ -7,8 +7,9 @@ Version: 0.1
 Date: 2017-01-23
 Author: Cesar Aybar
 Maintainer: Cesar  Aybar <aybar1994@gmail.com>
-Description: This packages provee function to interpolate spatial data
-License: MIT
+Description: Easy spatial interpolation based 
+    on the gstat package.
+License: GPL-2
 LazyData: TRUE
 Imports:
     gdalUtils,
@@ -17,11 +18,11 @@ Imports:
     dplyr,
     gstat,
     sp,
-    rgdal
+    rgdal,
+    stats
 RoxygenNote: 5.0.1
 Suggests:
     knitr,
     rmarkdown,
-    testthat,
-    covr
+    testthat
 VignetteBuilder: knitr

@@ -1,4 +1,4 @@
-#' BEST METHOD INTERPOLATION
+#' Best Method Interpolation
 #' @author Cesar Aybar <aybar1994@gmail.com>
 #' @param gauge Is an object of SpatialPointsDataFrame-class.
 #' @param cov Is an object of RasterLayer.
@@ -6,14 +6,13 @@
 #' of independent variables; suppose the dependent variable has
 #' name 'z', for Kriging with Extrenal Drift (KED) use the formula
 #' 'z~x+y+....', you do not need define
-#' @param model variogram model of dependent variable (or its residuals),
-#' defined by a call to \code{\link[Dorado]{FitVariogram}}
+#' @param idpR Is vector numeric of the power coeficient to evaluate.
 #' @param ... parameters that are passed on to \link[gstat]{variogram} variogram when calculating the sample variogram
 #' @importFrom automap autofitVariogram
 #' @importFrom raster extract projection writeRaster
 #' @importFrom sp coordinates
 #' @importFrom gstat krige.cv idw krige
-#' @importFrom stat as.formula
+#' @importFrom stats as.formula
 #' @return a List that contains: \code{Interpol} is the KED result in Raster,
 #'  \code{params} being \code{residual} that are spatial residual obtains in the cross-validation (residual),
 #'  \code{MSE} is the Residual Mean squared error and finally \code{var} is  the variogram model.
