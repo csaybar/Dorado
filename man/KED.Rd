@@ -2,22 +2,24 @@
 % Please edit documentation in R/Ked.R
 \name{KED}
 \alias{KED}
-\title{KED (Kriging with Extrenal Drift) using Raster and sp Objects}
+\title{KED (Kriging with Extrenal Drift or Ordinary Kriging) using Raster and sp Objects}
 \usage{
-KED(gauge, cov, formula, model, ...)
+KED(gauge, cov, formula, model, crossval = F, ...)
 }
 \arguments{
 \item{gauge}{Is an object of SpatialPointsDataFrame-class.}
 
 \item{cov}{Is an object of RasterLayer.}
 
-\item{formula}{that defines the dependent variable as a linear model
-of independent variables; suppose the dependent variable has
-name 'z', for Kriging with Extrenal Drift (KED) use the formula
-'z~x+y+....', you do not need define}
+\item{formula}{that defines the dependent variable as a linear model}
 
 \item{model}{variogram model of dependent variable (or its residuals),
 defined by a call to \code{\link[Dorado]{FitVariogram}}}
+
+\item{crossval}{logical, Generate crosvalidation
+of independent variables; suppose the dependent variable has
+name 'z', for Kriging with Extrenal Drift (KED) use the formula
+'z~x+y+....', you do not need define}
 
 \item{...}{parameters that are passed on to \link[gstat]{variogram} variogram when calculating the sample variogram}
 }
@@ -27,14 +29,13 @@ a List that contains: \code{Interpol} is the KED result in Raster,
  \code{MSE} is the Residual Mean squared error and finally \code{var} is  the variogram model.
 }
 \description{
-KED (Kriging with Extrenal Drift) using Raster and sp Objects
+KED (Kriging with Extrenal Drift or Ordinary Kriging) using Raster and sp Objects
 }
 \examples{
 library(raster)
 library(Dorado)
 data('Dorado')
-k <- KED(gauge = Dorado$rain,cov = stack(Dorado$cov),formula = rain~prec+dem)
-plot(k$Interpol)
+#k = KED(gauge = Dorado$rain,cov = stack(Dorado$cov),formula = rain~prec+dem,crossval=T)
 }
 \author{
 Cesar Aybar <aybar1994@gmail.com>

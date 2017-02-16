@@ -17,8 +17,6 @@ best_method(gauge, cov, idpR = seq(0.8, 3.5, 0.1), formula)
 of independent variables; suppose the dependent variable has
 name 'z', for Kriging with Extrenal Drift (KED) use the formula
 'z~x+y+....', you do not need define}
-
-\item{...}{parameters that are passed on to \link[gstat]{variogram} variogram when calculating the sample variogram}
 }
 \value{
 a List that contains: \code{Interpol} is the KED result in Raster,
