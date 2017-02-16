@@ -2,6 +2,7 @@
 
 export(Euclidean_R)
 export(FitVariogram)
+export(IDW)
 export(KED)
 export(RIDW)
 export(XY_R)
