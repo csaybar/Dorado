@@ -24,12 +24,11 @@ Variogram Estimate based in RasterLayer and sp Objects
 \examples{
 library(raster)
 data(Dorado)
-variogram_fit(gauge = Dorado$rain,cov = stack(Dorado$cov),rain~prec+dem)
-}
-\author{
-Cesar Aybar <aybar1994@gmail.com>
+variogram_fit(gauge = Dorado$gauge,cov = Dorado$TRMM,PP_anual~Precipitacion_Anual)
 }
 \seealso{
 \link[gstat]{fit.variogram} \link[automap]{autofitVariogram}
 }
-
+\author{
+Cesar Aybar <aybar1994@gmail.com>
+}

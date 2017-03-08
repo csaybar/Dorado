@@ -22,12 +22,16 @@ name 'z', for Kriging with Extrenal Drift (KED) use the formula
 a List that contains: \code{Interpol} is the KED result in Raster,
  \code{params} being \code{residual} that are spatial residual obtains in the cross-validation (residual),
  \code{MSE} is the Residual Mean squared error and finally \code{var} is  the variogram model.
- @export
 }
 \description{
 Best Method Interpolation
 }
+\examples{
+data("Dorado")
+gauge <- mean_doble_Station(gauge = Dorado$gauge,cov = Dorado$TRMM)
+sat <- Dorado$TRMM
+x <- best_method(gauge = gauge,cov = sat,formula = PP_anual~Precipitacion_Anual)
+}
 \author{
 Cesar Aybar <aybar1994@gmail.com>
 }
-

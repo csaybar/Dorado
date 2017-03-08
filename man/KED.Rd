@@ -34,13 +34,14 @@ KED (Kriging with Extrenal Drift or Ordinary Kriging) using Raster and sp Object
 \examples{
 library(raster)
 library(Dorado)
-data('Dorado')
-#k = KED(gauge = Dorado$rain,cov = stack(Dorado$cov),formula = rain~prec+dem,crossval=T)
-}
-\author{
-Cesar Aybar <aybar1994@gmail.com>
+data("Dorado")
+gauge <- mean_doble_Station(gauge = Dorado$gauge,cov = Dorado$TRMM)
+sat <- Dorado$TRMM
+x <- KED(gauge = gauge,cov = sat,formula = PP_anual~Precipitacion_Anual,crossval = TRUE)
 }
 \seealso{
 \link[gstat]{krige} \link[automap]{autoKrige}
 }
-
+\author{
+Cesar Aybar <aybar1994@gmail.com>
+}

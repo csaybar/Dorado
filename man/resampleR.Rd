@@ -32,15 +32,14 @@ possibility is that you have one RasterLayer object and you know the pixel resol
 and the extents.
 }
 \examples{
-#First Case
 library(raster)
+library(Dorado)
+data("Dorado")
 r_prec<-system.file("external/raster/Chirp_1981_01_01.tif",package = "Dorado")
 Prec_Bolivia<-raster(r_prec)
-#resampleR(R1=Prec_Bolivia,R2=dem,Routput = "~/")
+#resampleR(R1=Prec_Bolivia,R2=Dorado$gauge,Routput = "./")
 #Second Case
-#resampleR(R1=Prec_Bolivia,t_res=c(0.1,0.1),t_ext=c(-71,-65,-23,-13),Routput = "~/")
 }
 \author{
 Cesar Aybar <aybar1994@gmail.com>
 }
-

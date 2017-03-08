@@ -14,10 +14,9 @@ Estimate Longitude and Latitude RasterLayer object
 }
 \examples{
 library(Dorado)
-data("Titicaca")
-XY_R(Titicaca$cov$prec)
+data("Dorado")
+XY_R(Dorado$TRMM)
 }
 \author{
 Cesar Aybar <aybar1994@gmail.com>
 }
-

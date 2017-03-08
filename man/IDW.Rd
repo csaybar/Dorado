@@ -33,15 +33,16 @@ R_IDW use crossvalidation Leave-p-out cross-validation (LpO CV) and force brute 
  for estimate the best idp power coeficient.
 }
 \examples{
- library(raster)
- data(Titicaca)
- x <- IDW(gauge = Titicaca$rain,cov = Titicaca$cov$long,formula = rain~1)
- plot(x$Interpol)
-}
-\author{
-Cesar Aybar <aybar1994@gmail.com>
+library(raster)
+library(Dorado)
+data("Dorado")
+gauge <- mean_doble_Station(gauge = Dorado$gauge,cov = Dorado$TRMM)
+sat <- Dorado$TRMM
+x <- IDW(gauge = gauge,cov = sat,formula = PP_anual~1)
 }
 \seealso{
 \link[gstat]{idw}
 }
-
+\author{
+Cesar Aybar <aybar1994@gmail.com>
+}
