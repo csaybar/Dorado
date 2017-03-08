@@ -3,8 +3,8 @@
 #'@param x RasterLayer object
 #'@examples
 #'library(Dorado)
-#' data("Titicaca")
-#' XY_R(Titicaca$cov$prec)
+#'data("Dorado")
+#'XY_R(Dorado$TRMM)
 #'@importFrom dplyr %>%
 #'@importFrom raster rasterToPoints raster
 #'@importFrom sp coordinates gridded
@@ -12,7 +12,6 @@
 #'@import raster
 #'@importFrom utils modifyList
 #'@export
-
 XY_R <- function(x) {
   long <- rasterToPoints(x)[, c(1, 2, 1)] %>% data.frame
   coordinates(long) <- ~x + y

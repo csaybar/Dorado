@@ -17,8 +17,10 @@
 #' @examples
 #' library(raster)
 #' library(Dorado)
-#' data('Dorado')
-#' #k = KED(gauge = Dorado$rain,cov = stack(Dorado$cov),formula = rain~prec+dem,crossval=T)
+#' data("Dorado")
+#' gauge <- mean_doble_Station(gauge = Dorado$gauge,cov = Dorado$TRMM)
+#' sat <- Dorado$TRMM
+#' x <- KED(gauge = gauge,cov = sat,formula = PP_anual~Precipitacion_Anual,crossval = TRUE)
 #' @importFrom automap autofitVariogram
 #' @importFrom raster extract projection writeRaster
 #' @importFrom sp coordinates
@@ -40,15 +42,14 @@ KED <- function(gauge, cov, formula, model,crossval=F,...) {
 
   # Interpolation
   # ----------------------------------------------------------
-  Zs <- krige(formula, locations = ext, newdata = point, model = model$var_model)
+  Zs <- krige(formula, locations = ext, newdata = point, model = model$var_model,...)
   map <- as(Zs[1], "SpatialPixelsDataFrame")
   gridded(map) <- TRUE
   mapa <- raster(map)
-  plot(mapa)
   if(crossval==T){
-    Zs.cv <- krige.cv(formula, ext,model$var_model, nfold = nrow(ext), nmax = Inf)
+    Zs.cv <- krige.cv(formula, ext,model$var_model, nfold = nrow(ext),...)
     Zs.cvresidual <- Zs.cv["residual"]
-    list(Interpol = mapa, params = list(residual = Zs.cvresidual, MSE = mean(Zs.cvresidual$residual^2),
+    list(Interpol = mapa, params = list(residual = Zs.cvresidual, rmse = sqrt(mean(Zs.cvresidual$residual^2)),
                                       var = vm.fit))
   } else  mapa
 }

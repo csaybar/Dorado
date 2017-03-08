@@ -18,10 +18,12 @@
 #'  \code{MSE} is the Residual Mean squared error of the residuals and
 #'   finally \code{linear_Model} is  the adjusted linear Model.
 #' @examples
-#'  library(raster)
-#'  data(Titicaca)
-#'  x <- RIDW(gauge = Titicaca$rain,cov = stack(Titicaca$cov),formula = rain~prec)
-#'  plot(x$Interpol)
+#' library(raster)
+#' library(Dorado)
+#' data("Dorado")
+#' gauge <- mean_doble_Station(gauge = Dorado$gauge,cov = Dorado$TRMM)
+#' sat <- Dorado$TRMM
+#' x <- RIDW(gauge = gauge,cov = sat,formula = PP_anual~Precipitacion_Anual)
 #' @importFrom automap autofitVariogram
 #' @importFrom dplyr %>% tbl_df mutate_all
 #' @importFrom raster extract projection writeRaster stack nlayers
@@ -50,17 +52,15 @@ RIDW <- function(gauge, cov, formula, idpR = seq(0.8, 3.5, 0.1),...) {
   idpRange <- idpR
   mse <- rep(NA, length(idpRange))
   for (i in 1:length(idpRange)) {
-    mse[i] <- mean(krige.cv(residuals ~ 1, station, nfold = nrow(station),
-                            nmax = Inf, set = list(idp = idpRange[i]), verbose = F)$residual^2)
+    mse[i] <- mean(krige.cv(residuals ~ 1, station, nfold = nrow(station), set = list(idp = idpRange[i]), verbose = F,...)$residual^2)
   }
   poss <- which(mse %in% min(mse))
   bestparam <- idpRange[poss]
-  residual.best <- krige.cv(residuals ~ 1, station, nfold = nrow(station),
-                            nmax = Inf, set = list(idp = idpRange[poss]), verbose = F)$residual
+  residual.best <- krige.cv(residuals ~ 1, station, nfold = nrow(station), set = list(idp = idpRange[poss]), verbose = F,...)$residual
 
   # Interpolation ----------------------------------------------------------
 
-  idwError <- idw(residuals ~ 1, station, point, idp = bestparam)
+  idwError <- idw(residuals ~ 1, station, point, idp = bestparam,...)
   idwError <- idwError["var1.pred"]
   gridded(idwError) <- TRUE
   mapa <- raster(idwError)
@@ -72,8 +72,7 @@ RIDW <- function(gauge, cov, formula, idpR = seq(0.8, 3.5, 0.1),...) {
   OBSp <- sum(stack(mapply(function(i) cov[[i]] * llm$coefficients[i + 1],
                            1:nlayers(cov)))) + llm$coefficients[1]
   Ridw <- OBSp + mapa
-  Ridw[Ridw < 0] <- 0
   # Save Data ---------------------------------------------------------------
-  list(Interpol = Ridw, params = list(bestp = bestparam, MSE = mean(residual.best^2),
+  list(Interpol = Ridw, params = list(bestp = bestparam, rmse = sqrt(mean(residual.best^2)),
                                       linear_Model = llm))
 }

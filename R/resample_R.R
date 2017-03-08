@@ -16,13 +16,15 @@
 #'@importFrom raster projection xmin ymin xmax ymax res
 #'@importFrom gdalUtils gdalwarp
 #'@examples
-#' #First Case
-#' library(raster)
-#' r_prec<-system.file("external/raster/Chirp_1981_01_01.tif",package = "Dorado")
-#' Prec_Bolivia<-raster(r_prec)
-#' #resampleR(R1=Prec_Bolivia,R2=dem,Routput = "~/")
-#' #Second Case
-#' #resampleR(R1=Prec_Bolivia,t_res=c(0.1,0.1),t_ext=c(-71,-65,-23,-13),Routput = "~/")
+#First Case
+#'library(raster)
+#'library(Dorado)
+#'data("Dorado")
+#'r_prec<-system.file("external/raster/Chirp_1981_01_01.tif",package = "Dorado")
+#'Prec_Bolivia<-raster(r_prec)
+#'#resampleR(R1=Prec_Bolivia,R2=Dorado$gauge,Routput = "./")
+#'#Second Case
+#r#esampleR(R1=Prec_Bolivia,t_res=c(0.1,0.1),t_ext=c(-71,-65,-23,-13),Routput = "~/")
 #'@export
 
 resampleR <- function(R1 = NULL, R2 = NULL, t_res = NULL, t_ext = NULL,

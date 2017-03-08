@@ -17,10 +17,12 @@
 #'  \code{MSE} is the Residual Mean squared error of the residuals and
 #'   finally \code{linear_Model} is  the adjusted linear Model.
 #' @examples
-#'  library(raster)
-#'  data(Titicaca)
-#'  x <- IDW(gauge = Titicaca$rain,cov = Titicaca$cov$long,formula = rain~1)
-#'  plot(x$Interpol)
+#' library(raster)
+#' library(Dorado)
+#' data("Dorado")
+#' gauge <- mean_doble_Station(gauge = Dorado$gauge,cov = Dorado$TRMM)
+#' sat <- Dorado$TRMM
+#' x <- IDW(gauge = gauge,cov = sat,formula = PP_anual~1)
 #' @importFrom automap autofitVariogram
 #' @importFrom dplyr %>% tbl_df mutate_all
 #' @importFrom raster extract projection writeRaster stack nlayers

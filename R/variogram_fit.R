@@ -12,7 +12,7 @@
 #' @examples
 #' library(raster)
 #' data(Dorado)
-#' variogram_fit(gauge = Dorado$rain,cov = stack(Dorado$cov),rain~prec+dem)
+#' variogram_fit(gauge = Dorado$gauge,cov = Dorado$TRMM,PP_anual~Precipitacion_Anual)
 #' @export
 #'
 variogram_fit <- function(gauge, cov, formula, ...) {

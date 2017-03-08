@@ -1,16 +1,11 @@
-#' Altiplane Peru Bolivia Rainfall Information
-#'
-#' A dataset containing rainfall information and other spatial covariables.
-#'  Dorado. The variables are as follows:
-#' @format A list with 2 camps: rain and cov:
+#' Peruvian Rainfall Information
+#' @format A dataset containing rainfall information and TRMM2A25:
 #' \itemize{
-#'   \item rain: 72 rainfall station is a sp object.
-#'   \item cov$long: longitude raster.
-#'   \item cov$lat: latitude raster.
-#'   \item cov$prec: rainfall raster.
-#'   \item cov$dem: Digital Elevation Model raster.
-#'   \item cov$dist: Distance to sea raster}
+#'   \item Bolivia_new$rain: 83 rainfall station is a sp object.
+#'   \item Bolivia_new$TRMM: raster precipitation.
+#'    }
 #' @examples
 #' library(Dorado)
 #' data("Dorado")
 "Dorado"
+
