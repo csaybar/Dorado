@@ -1,6 +1,4 @@
-retired 
-
-
+![](https://img.shields.io/badge/lifecycle-retired-orange.svg)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/AybarCL/Dorado?branch=master&svg=true)](https://ci.appveyor.com/project/AybarCL/Dorado)
 [![codecov](https://codecov.io/gh/AybarCL/Dorado/branch/master/graph/badge.svg)](https://codecov.io/gh/AybarCL/Dorado)
 [![Travis-CI Build Status](https://travis-ci.org/AybarCL/Dorado.svg?branch=master)](https://travis-ci.org/AybarCL/Dorado)
